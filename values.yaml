@@ -1,0 +1,17 @@
+etcdEndpoint: "etcd.default.svc.cluster.local"
+admin_username: "admin"
+admin_password: "admin"
+replicaCount: 1
+image:
+  repository: "sensu/sensu"
+  tag: "latest"
+etcd:
+  replicaCount: 1
+  auth:
+    rbac:
+      create: false
+    token:
+      enabled: false
+    peer:
+      secureTransport: true
+      useAutoTLS: true

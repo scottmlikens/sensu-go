@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensu-go
+  labels:
+    app: sensu-go
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: sensu-go
+  template:
+    metadata:
+      labels:
+        app: sensu-go
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: "sensu"
+          image: "sensu/sensu:latest"
+          command: [ "/opt/sensu/bin/sensu-backend" ]
+          args: [ "start", "--etcd-advertise-client-urls=http://{{ .Values.etcdEndpoint }}:2379", "--no-embed-etcd", "--debug" ]
+          env:
+          - name: SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD
+            value: "{{ .Values.admin_password }}"
+          - name: SENSU_BACKEND_CLUSTER_ADMIN_USERNAME
+            value: "{{ .Values.admin_username }}"          
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: websocket
+              protocol: TCP
+              containerPort: 8081
+            - name: api
+              protocol: TCP
+              containerPort: 8080
+            - name: dashboard
+              protocol: TCP
+              containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
