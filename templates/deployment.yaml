@@ -2,18 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sensu-go
+  name: sensu
   labels:
-    app: sensu-go
+    app: sensu
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: sensu-go
+      app: sensu
   template:
     metadata:
       labels:
-        app: sensu-go
+        name: sensu
+        app: sensu
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
