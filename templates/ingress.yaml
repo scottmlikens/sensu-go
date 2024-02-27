@@ -1,0 +1,40 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sensu
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "websocket.k8s.likens.us"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sensu-go
+            port:
+              number: 8081
+  - host: "api.k8s.likens.us"
+    http: 
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sensu-go
+            port:
+              number: 8080
+
+  - host: "dashboard.k8s.likens.us"
+    http: 
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sensu-go
+            port:
+              number: 3000
+
