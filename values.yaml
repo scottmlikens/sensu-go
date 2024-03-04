@@ -1,6 +1,7 @@
 etcdEndpoint: "etcd.default.svc.cluster.local"
-admin_username: "admin"
-admin_password: "admin"
+websocketHost: "websocket.k8s.likens.us"
+dashboardHost: "dashboard.k8s.likens.us"
+apiHost: "api.k8s.likens.us"
 replicaCount: 1
 image:
   repository: "sensu/sensu"

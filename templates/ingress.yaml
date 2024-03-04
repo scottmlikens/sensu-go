@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "websocket.k8s.likens.us"
+  - host: {{ .Values.websocketHost }}
     http:
       paths:
       - path: /
@@ -16,7 +16,7 @@ spec:
             name: sensu-go
             port:
               number: 8081
-  - host: "api.k8s.likens.us"
+  - host: {{ .Values.apiHost }}
     http: 
       paths:
       - path: /
@@ -27,7 +27,7 @@ spec:
             port:
               number: 8080
 
-  - host: "dashboard.k8s.likens.us"
+  - host: {{ .Values.DashboardHost }}
     http: 
       paths:
       - path: /

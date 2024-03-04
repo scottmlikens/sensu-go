@@ -27,11 +27,6 @@ spec:
           image: "sensu/sensu:latest"
           command: [ "/opt/sensu/bin/sensu-backend" ]
           args: [ "start", "--etcd-advertise-client-urls=http://{{ .Values.etcdEndpoint }}:2379", "--no-embed-etcd", "--debug" ]
-          env:
-          - name: SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD
-            value: "{{ .Values.admin_password }}"
-          - name: SENSU_BACKEND_CLUSTER_ADMIN_USERNAME
-            value: "{{ .Values.admin_username }}"          
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: websocket
