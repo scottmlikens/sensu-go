@@ -2,6 +2,7 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
+  namespace: {{ .Values.namespace }}
   name: sensu-agent
 spec:
   minReadySeconds: 10

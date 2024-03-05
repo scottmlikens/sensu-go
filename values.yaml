@@ -2,6 +2,7 @@ etcdEndpoint: "etcd.default.svc.cluster.local"
 websocketHost: "websocket.k8s.likens.us"
 dashboardHost: "dashboard.k8s.likens.us"
 apiHost: "api.k8s.likens.us"
+namespace: "sensu"
 replicaCount: 1
 image:
   repository: "sensu/sensu"
