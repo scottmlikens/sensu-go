@@ -1,4 +1,4 @@
-etcdEndpoint: "etcd.default.svc.cluster.local"
+etcdEndpoint: "etcd.sensu.svc.cluster.local"
 websocketHost: "websocket.k8s.likens.us"
 dashboardHost: "dashboard.k8s.likens.us"
 apiHost: "api.k8s.likens.us"
