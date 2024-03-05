@@ -3,12 +3,12 @@ websocketHost: "websocket.k8s.likens.us"
 dashboardHost: "dashboard.k8s.likens.us"
 apiHost: "api.k8s.likens.us"
 namespace: "sensu"
-replicaCount: 1
+replicaCount: 3
 image:
   repository: "sensu/sensu"
   tag: "latest"
 etcd:
-  replicaCount: 1
+  replicaCount: 3
   auth:
     rbac:
       create: false
